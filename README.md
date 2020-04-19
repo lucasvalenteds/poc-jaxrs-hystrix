@@ -8,5 +8,5 @@ It demonstrates how to send metrics from a REST API implemented using JAX-RS to 
 | :--- | :--- |
 | Run tests | `./gradlew test` |
 | Run the API | `./gradlew run` |
-| Make successful requests | `make success` |
-| Make failure requests | `make failure` |
+| Send successful requests | `make success` |
+| Send failure requests | `make failure` |
