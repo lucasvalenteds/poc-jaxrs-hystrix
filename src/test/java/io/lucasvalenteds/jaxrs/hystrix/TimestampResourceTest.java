@@ -7,18 +7,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MessagesTest extends JerseyTest {
+public class TimestampResourceTest extends JerseyTest {
 
     @Override
     protected Application configure() {
-        return new ResourceConfig(Messages.class);
+        return new ResourceConfig(TimestampResource.class);
     }
 
     @BeforeEach
@@ -33,25 +33,23 @@ public class MessagesTest extends JerseyTest {
 
     @Test
     public void testItReturnMessagesForSuccess() {
-        Response response = target("/messages")
-                .queryParam("shouldFail", false)
-                .request()
-                .get();
+        Response response = target("/timestamp").request().get();
 
-        List<String> body = response.readEntity(new GenericType<>() {
-        });
+        String body = response.readEntity(String.class);
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertEquals(List.of("Hello World!"), body);
+        assertEquals(MediaType.APPLICATION_JSON, response.getHeaderString("Content-Type"));
+        assertFalse(body.isEmpty());
     }
 
     @Test
     public void testItReturnsEmptyStringForFailure() {
-        Response response = target("/messages")
+        Response response = target("/timestamp")
                 .queryParam("shouldFail", true)
                 .request()
                 .get();
 
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
+        assertTrue(response.getHeaderString("Content-Type").contains(MediaType.TEXT_HTML));
     }
 }

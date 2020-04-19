@@ -1,4 +1,4 @@
-SERVICE_URL = "http://localhost:8081/messages?shouldFail"
+SERVICE_URL = "http://localhost:8081/timestamp?shouldFail"
 
 success:
 	@while :; \
