@@ -6,6 +6,7 @@ It demonstrates how to send metrics from a REST API implemented using JAX-RS to 
 
 | Description | Command |
 | :--- | :--- |
+| Run tests | `./gradlew test` |
 | Run the API | `./gradlew run` |
 | Make successful requests | `make success` |
 | Make failure requests | `make failure` |
